@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WebSocket Example</title>
+	<script type="text/javascript">
+		var ws;
+
+		function connect() {
+			var uid = document.getElementById('uidInput').value;
+			ws = new WebSocket("ws://localhost:8080/ws?uid=" + uid);
+
+			ws.onopen = function() {
+				console.log("Connected to WebSocket server");
+			};
+
+			ws.onmessage = function(event) {
+				var messages = document.getElementById('messages');
+				var message = document.createElement('li');
+				message.textContent = event.data;
+				messages.appendChild(message);
+			};
+
+			ws.onclose = function() {
+				console.log("Disconnected from WebSocket server");
+			};
+		}
+
+		function sendMessage() {
+			var input = document.getElementById('messageInput');
+			ws.send(input.value);
+			// input.value = '';
+		}
+	</script>
+</head>
+<body>
+	<h1>WebSocket Chat</h1>
+	<input type="text" id="uidInput" placeholder="Enter your UID">
+	<button onclick="connect()">Connect</button>
+	<ul id="messages"></ul>
+	<input type="text" id="messageInput" placeholder="Type a message...">
+	<button onclick="sendMessage()">Send</button>
+</body>
+</html>

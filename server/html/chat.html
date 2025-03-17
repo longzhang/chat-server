@@ -2,12 +2,14 @@
 <html>
 <head>
 	<title>WebSocket Example</title>
+
 	<script type="text/javascript">
 		var ws;
 
 		function connect() {
 			var uid = document.getElementById('uidInput').value;
-			ws = new WebSocket("ws://localhost:8080/ws?uid=" + uid);
+			var serverPort = window.location.port || 8080;
+			ws = new WebSocket("ws://localhost:" + serverPort + "/ws?uid=" + uid);
 
 			ws.onopen = function() {
 				console.log("Connected to WebSocket server");
@@ -34,6 +36,13 @@
 </head>
 <body>
 	<h1>WebSocket Chat</h1>
+
+	<p>
+		messge 格式为 json <br>
+		{"to":"1","content":"xxx"} <br>
+		to 为接收方uid，注意统一为字符串 <br>
+
+	</p>
 	<input type="text" id="uidInput" placeholder="Enter your UID">
 	<button onclick="connect()">Connect</button>
 	<ul id="messages"></ul>

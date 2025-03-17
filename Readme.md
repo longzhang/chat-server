@@ -24,3 +24,7 @@ visit http://localhost:9999
 set uid  ,  "uid1"
 set send msg ,  {"to":"uid1","content":"XXX"}
 
+![截图](/server/imgs/screenshoot.png)
+
+
+
